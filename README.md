@@ -1,8 +1,17 @@
 open-cansat
 ===========
 
-This code primarily consists of two parts. An Arduino sketch reads values from
-sensors attached to the Edison and logs the results, in a comma-separated
+The Edison includes one processor that can be used for Linux programs
+and another processor that runs an emulation of an Arduino. The Arduino
+emulator provides access to digital and analog input/output pins, though 
+some may have different behavior than the Arduino standards.
+
+Getting data from one side to the other is a bit challenging. Our solution
+is to write data to a text file from the Arduino side and to read the text
+file from the Linux side.
+
+This repository includes code for both side. An Arduino sketch reads values 
+from sensors attached to the Edison and logs the results, in a comma-separated
 format to a file. A Python program reads that log file and POSTs that data
 to a server when the Edison has a wifi connection.
 
@@ -118,8 +127,24 @@ Finally, copy off the mkv files in `Movies/autocapture/` and then:
 If any of this is testing data, and not needed, you can simply delete it instead
 of copying it off the Edison.
 
-# Other Notes #
+# Shutdown #
 
 When you're turning off the Edison, you should hold down the power button for
 approximately 8 seconds. Pulling the power without shutting the Edison down can
 result in corrupted data or other strange behavior.
+
+# Hardware Notes #
+
+The Edison runs at 1.8V. In order to communicate with 3.3V and 5V devices, you'll
+need to use a [level shifter](https://www.sparkfun.com/products/12009). 
+You can run some components (e.g. red LEDs) with 1.8V. 
+
+The mini breakout board includes connections for power and various input/output pins.
+To find a particular Arduino pin, first determine which GPIO pin it is using the
+Arduino breakout schematic. Then use the mini breakout schematic to locate the
+pin on the breakout grid. You can find a partial pinout diagram in the Hardware
+folder of this repository.
+
+The holes in the mini breakout grid are sufficiently small that you can connect
+headers without solder. Once you are done testing, you should solder the connection
+so that they are more reliable.
