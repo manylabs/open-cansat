@@ -3,14 +3,14 @@ open-cansat
 
 The Edison includes one processor that can be used for Linux programs
 and another processor that runs an emulation of an Arduino. The Arduino
-emulator provides access to digital and analog input/output pins, though 
+emulator provides access to digital and analog pins, though 
 some may have different behavior than the Arduino standards.
 
 Getting data from one side to the other is a bit challenging. Our solution
 is to write data to a text file from the Arduino side and to read the text
 file from the Linux side.
 
-This repository includes code for both side. An Arduino sketch reads values 
+This repository includes code for both sides. An Arduino sketch reads values 
 from sensors attached to the Edison and logs the results, in a comma-separated
 format to a file. A Python program reads that log file and POSTs that data
 to a server when the Edison has a wifi connection.
@@ -137,7 +137,8 @@ result in corrupted data or other strange behavior.
 
 The Edison runs at 1.8V. In order to communicate with 3.3V and 5V devices, you'll
 need to use a [level shifter](https://www.sparkfun.com/products/12009). 
-You can run some components (e.g. red LEDs) with 1.8V. 
+You can run some components (e.g. red LEDs) with 1.8V. (Use an LED calculator
+to select the right resistor for your LED.)
 
 The mini breakout board includes connections for power and various input/output pins.
 To find a particular Arduino pin, first determine which GPIO pin it is using the
